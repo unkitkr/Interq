@@ -1,0 +1,63 @@
+{% extends 'baseoperations.html' %}
+
+{% block title %} Features{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 order-md-first order-last">
+            <div class="row features-top">
+                <div class="col-md-6  ">
+                    <div class="card features-card" id="routing" onclick="feature_change(this.id)">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 15px; padding: 0px !important; margin: 0% !important;"><span class="fa-stack fa-2x">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-minus fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                              </span> <span>Trim links</span></h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card features-card" id="dataanalytics" onclick="feature_change(this.id)">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 15px; padding: 0px !important; margin: 0% !important;"><span class="fa-stack fa-2x">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-chart-line fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                              </span> <span>Analytics</span></h5> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card features-card" id="manageactivity" onclick="feature_change(this.id)">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 15px; padding: 0px !important; margin: 0% !important;"><span class="fa-stack fa-2x">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-gamepad fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                              </span> <span>Manage activity</span></h5> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card features-card" id="easysetup" onclick="feature_change(this.id)">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 15px; padding: 0px !important; margin: 0% !important;"><span class="fa-stack fa-2x">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-hand-point-up fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                              </span> <span>Easy setup</span></h5> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+           <p style="text-align: center;"> <img src="/static/img/routing.png" class="img-features" id="img-features" alt=""> </p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

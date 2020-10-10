@@ -1,0 +1,273 @@
+
+/* Landing page elements */
+
+/* header elements*/
+html{
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins';
+    scroll-behavior: smooth;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    background-color: #fcf5ff;
+    font-family: 'Nunito';
+}
+
+
+
+
+/* navbar elements*/
+.navbar{
+    box-shadow: none;
+}
+
+.nav-link{
+    color: #1C0025;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+
+.nav-link:hover{
+    color: #45025c ;
+}
+
+.btn-signin{
+    background:linear-gradient(135deg, #250131 0%,#1C0025 100%);
+    color: #ffffff;
+    font-family: 'Poppins';
+}
+
+.btn-signin:hover{
+    color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(211, 166, 242, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+
+
+/* landing page elements */
+
+.img-land{
+    padding-top: 30px;
+}
+
+.main-land{
+    padding-top: 140px;
+    color: #1C0025;
+    font-weight: 800;
+    font-size: 40px;
+    font-family: 'Poppins';
+}
+
+.sub-land{
+    color: #1C0025;
+    font-weight: 300;
+    font-size: 20px;
+    font-family: 'Poppins';
+    padding-top: 20px;
+}
+
+.btn-start{
+    background: linear-gradient(135deg, #250131 0%,#1C0025 100%);
+    color: #ffffff;
+    font-family: 'Poppins';
+    margin-left: 0px;
+    margin-top: 20px;
+}
+
+.btn-start:hover{
+    color: #ffffff;
+}
+
+
+/* Landing page elments ends */
+
+
+
+/* Dashboard elements start */
+
+
+.navbar-dash{
+    background-color: #14021a !important;
+}
+.navbar-dash-container{
+    
+    font-family: 'Poppins';
+}
+.username-navdash{
+    font-family: 'Poppins';
+    font-weight: 400;
+    color: #ffffff !important;
+}
+
+.user-details-plane{
+    padding-top: 30px;
+}
+
+.greet-hello{
+    font-family:'Poppins';
+    font-weight: 600;
+    font-size: 22px;
+    vertical-align: middle;
+}
+
+.mission-ctrl{
+    font-family:'Poppins';
+    font-weight: 400;
+    font-size: 16px;
+    vertical-align: middle;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.link-total{
+    font-family: 'Poppins';
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.link-short{
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 400; 
+    line-height: 0;
+}
+
+
+.links-plane{
+    padding-top: 30px;
+}
+
+.card-body{
+    font-family: 'Poppins';
+}
+
+.close-btn-msg{
+    position:absolute;
+    bottom:0; 
+    right:0px; 
+    padding:2px; 
+    background-color: #AB3DFA; 
+    color: #ffffff;
+}
+
+/* Dashboard elements ends */
+
+
+
+/* 404 elements */
+
+.message-404{
+    font-size: 40px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    padding-top: 20px;
+}
+
+
+.message-404-sub{
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    color: #ffffff;
+    padding-top: 10px;
+}
+
+/* 404 elements ends */
+
+/* features starts */
+
+.features-top{
+    padding-top: 160px;
+}
+
+.features-card{
+    margin-bottom: 30px;
+    box-shadow: 1px 1px 8px   #a155dc;
+    cursor: pointer;
+}
+
+.img-features{
+    width: 80%; 
+    padding-top: 80px;
+}
+
+/* features ends */
+
+
+/* about starts */
+
+.about-top-row{
+    padding-top: 120px;
+}
+
+.about-card{
+    background-color: #f5d9ff;
+}
+
+.slit-imp{
+    text-align: center;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 25px;
+    color: #ffffff;
+}
+
+.slit-imp-sec{
+    text-align: center;
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+
+/* moblile optimizations */
+
+@media only screen and (max-width: 576px) {
+    .main-land{
+        padding-top: 30px;
+    }
+    .main-btn-center{
+        text-align: center;
+    }
+    .main-land{
+        text-align: center;
+    }
+    .sub-land{
+        text-align: center;
+    }
+    .userline-landing{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .navbar-dash{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .navbar-dash-container{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .features-top{
+        padding-top: 30px;
+    }
+    .img-features{
+        padding-top: 10px;
+    }
+    .about-top-row{
+        padding-top: 30px;
+    }
+    .about-card{
+        margin-bottom: 30px;
+    }
+    .slit-imp-sec{
+        padding-bottom: 50px;
+    }
+  }

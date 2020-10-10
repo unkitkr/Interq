@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slit|Fit URLs</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="/static/css/mdb.min.css">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link rel="icon" type="image/ico" href="/static/img/slit.ico" />
+</head>
+
+<body style="background-color:rgb(252, 248, 255);">
+
+    <!--Navbar -->
+    <div class="container navbar-dash-container">
+        <nav class="navbar navbar-expand-lg navbar-dash">
+            <a class="navbar-brand" href="#"><img src="/static/img/slit-logo.png" width="80"
+                    style="padding-top: 10px; padding-bottom: 10px;" alt=""></a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" href="#">
+                        <img src="https://ui-avatars.com/api/?name={{ payload.name }}&background=D3A6F2&color=fff"
+                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                </li>
+
+            </ul>
+            <div class="dropdown">
+                <a style="color: #ffffff !important;" class="dropdown-toggle" href="#" role="button"
+                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="username-navdash">{{ payload.name }}</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/app/signout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!--/.Navbar -->
+
+    <!-- New Link Modal -->
+    <div class="modal fade" id="newLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <div class="modal-header" style=" background-color: #AB3DFA;">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"><i class="fa fa-plus-circle"
+                            aria-hidden="true"></i> Create new link</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <form id="createURLform">
+                    <div class="modal-body">
+                        <div class="input-group mb-3" style="margin-bottom: 30px;">
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><i
+                                        class="fa fa-file-text" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="text" name="link_name" class="form-control" id="link_name"
+                                placeholder="Name (for your refernce)" required>
+                        </div>
+                        <div class="input-group mb-3" style="margin-bottom: 30px;">
+                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><i
+                                        class="fas fa-link"></i></span></div>
+                            <input type="url" name="long_link" class="form-control" id="long_link" placeholder="Long URL" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" style="margin: auto;" class="btn btn-secondary">Create new</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- New link Modal ends -->
+
+    <!-- All links -->
+    <div class="modal fade" id="allLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
+            style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <div class="modal-header" style=" background-color: #AB3DFA;">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"><i
+                            class="fa fa-external-link-square-alt" aria-hidden="true"></i> Link routes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        {% for pay in payload.all_links %}
+                        <div class="col-md-6">
+                            {% if pay.is_active %}
+                            <div class="card" style="border-top: 5px solid #99f359;  margin-bottom: 25px;">
+                            {% else %}
+                            <div class="card" id="" style="border-top: 5px solid #ff4949;  margin-bottom: 25px;">
+                            {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title" style="line-height: 1;">{{ pay.name }}</h5>
+                                    <p class="card-text" style="color: #000000; line-height: 1;">Redirects to: <a
+                                            href="/{{ pay.short_key }}">https://slit-fit.herokuapp.com/{{ pay.short_key }}</a></p>
+                                    <p class="card-text" style="color: #000000; line-height: 1;">Originates: <a
+                                            href="{{ pay.original_link }}">{{ pay.original_link }}</a></p>
+                                    <p class="card-text" style="color: #000000; line-height: 1;">Status: {{ pay.is_active }}</p>
+                                    {% if pay.is_active %}
+                                    <button class="btn close-btn-msg explicit-link-deactive" id="{{ pay.uid }}" type="button">Deactivate</button>
+                                    {% else %}
+                                    <button class="btn close-btn-msg explicit-link-reactive" id="{{ pay.uid }}" type="button">Activate</button>
+                                    {% endif %}
+                                    <button class="btn close-btn-msg explicit-link-delete" style="right: 92px; background-color: #ff4949;"
+                                        type="button" id="{{ pay.uid }}"  >Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="margin: auto;" data-dismiss="modal"
+                        class="btn btn-secondary">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- All links ends -->
+
+    <!-- main plane -->
+
+    <div class="container">
+        <div class="row">
+            {% if err %}
+            <div class="col-md-12" style="margin-top: 30px;" id="msg-box">
+                <div class="card">
+                    <div class="card-body" style="padding-top: 10px; padding-bottom:10px;">
+                        <h5 class="card-title" style="font-family: 'Poppins'; font-weight: 500;">Message</h5>
+                        <p class="card-text">
+                            {{ err }}
+                        </p>
+                    </div>
+                    <button class="btn close-btn-msg" onclick="hide_msg()" type="button">CLOSE</button>
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-md-12" style="margin-top: 30px; display: none;" id="msg-box-ajax">
+                <div class="card" >
+                    <div class="card-body" style="padding-top: 10px; padding-bottom:10px;">
+                        <h5 class="card-title" style="font-family: 'Poppins'; font-weight: 500;">Message</h5>
+                        <p class="card-text" id="ajax-response">
+                            Your request is being processed <i class="fas fa-spinner fa-pulse"></i>
+                        </p>
+                    </div>
+                    <button class="btn close-btn-msg" onclick="hide_msg()" type="button">CLOSE</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 user-details-plane">
+                <div class="card" style="margin-bottom: 30px !important;">
+                    <div class="card-body">
+                        <div class="greet">
+                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-smile fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                            </span>
+                            &nbsp; &nbsp; <span class="greet-hello">Hello! {{ payload.name }} </span>
+                        </div>
+                        <div class="mission-ctrl">This is your mission control center. Explore better. Make
+                            experiences better, for you and others.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom: 30px;">
+                            <div class="card-body" style="text-align: center;">
+                                <h5 class="card-title">
+                                    <span class="fa-stack fa-2x"
+                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
+                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                        <i class="fas fa-link fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                                    </span>
+                                </h5>
+                                <p class="link-total"> {{ payload.links_created }} </p>
+                                <p class="link-short">Links Shortened</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom: 30px;">
+                            <div class="card-body" style="text-align: center;">
+                                <h5 class="card-title">
+                                    <span class="fa-stack fa-2x"
+                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
+                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                        <i class="fas fa-hand-pointer fa-stack-1x fa-inverse"
+                                            style="color: #a932ff;"></i>
+                                    </span>
+                                </h5>
+                                <p class="link-total"> {{ payload.total_visits }} </p>
+                                <p class="link-short">Total Visits</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom: 30px;">
+                            <div class="card-body" style="text-align: center;">
+                                <h5 class="card-title">
+                                    <span class="fa-stack fa-2x"
+                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
+                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                        <i class="fas fa-chart-line fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                                    </span>
+                                </h5>
+                                <p class="link-total"> {{ payload.active_links }} </p>
+                                <p class="link-short">Active Links</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card" style="margin-bottom: 30px;">
+                            <div class="card-body" style="text-align: center;">
+                                <h5 class="card-title">
+                                    <span class="fa-stack fa-2x"
+                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
+                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                        <i class="fas fa-hand-pointer fa-stack-1x fa-inverse"
+                                            style="color: #a932ff;"></i>
+                                    </span>
+                                </h5>
+                                <p class="link-total"> {{ payload.higest_visit }} </p>
+                                <p class="link-short">Higest Visit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 links-plane">
+                <div class="card" style="margin-bottom: 30px !important;">
+                    <div class="card-body">
+                        <div class="greet" style="cursor: pointer;" data-toggle="modal" data-target="#newLinkModal">
+                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-plus-circle fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                            </span>
+                            &nbsp; &nbsp; <span class="greet-hello">Create new URL</span>
+                        </div>
+                        <div class="mission-ctrl">This is simple. Click on the above plus icon, fill the required
+                            details,
+                            just one click and you're good to go.
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom: 30px !important;">
+                    <div class="card-body">
+                        <div class="greet" style="cursor: pointer;" data-toggle="modal" data-target="#allLinkModal">
+                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-external-link-square-alt fa-stack-1x fa-inverse"
+                                    style="color: #a932ff;"></i>
+                            </span>
+                            &nbsp; &nbsp; <span class="greet-hello">Links list</span>
+                        </div>
+                        <div class="mission-ctrl" style="padding-top: 13px;">Get details of all the links, which were
+                            created by you.
+                            Click on the above link icon to get started.
+                        </div>
+                        <div>&nbsp;</div>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom: 30px !important;">
+                    <div class="card-body">
+                        <div class="greet">
+                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
+                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
+                                <i class="fas fa-user fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
+                            </span>
+                            &nbsp; &nbsp; <span class="greet-hello">Account details</span>
+                        </div>
+                        <div class="row" style="padding-top: 12px;">
+                            <div class="col-sm-7">
+                                <span style="font-weight: 500;">Name: </span>{{ payload.name }} <br>
+                                <span style="font-weight: 500;">Email: </span> {{ payload.email }} <br>
+                            </div>
+                            <div class="col-sm-5">
+                                <span style="font-weight: 500;">Date joined: </span> {{ payload.joined }} <br>
+                                <span style="font-weight: 500;">Membership: </span> Free <br>
+                            </div>
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- main plane ends -->
+
+
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/static/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/static/js/mdb.min.js"></script>
+    <!-- custom scripts -->
+    <script src = "/static/js/scripts.js"></script>
+    <script src="https://use.fontawesome.com/fbbdea0b20.js"></script>
+
+</body>
+
+</html>

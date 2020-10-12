@@ -3,6 +3,7 @@ from models import db, Users, OAuth, UserExperience, Companies
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_dance.contrib.linkedin import make_linkedin_blueprint, linkedin
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
+from flask_dance.consumer import oauth_authorized
 import os, uuid
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
@@ -29,6 +30,7 @@ def load_user(user_id):
 
 
 
+linkedin_bp.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
 
 
 @app.route('/', methods=['GET'])
@@ -38,24 +40,49 @@ def home_page():
 
 @app.route("/login")
 def login():
-    if not linkedin.authorized:
+    if not linkedin.authorized and not current_user.is_authenticated:
         return redirect(url_for("linkedin.login"))
     else:
-        resp = linkedin.get('me')
-        data = resp.json()
-        name = data["localizedFirstName"] + " " + data["localizedLastName"]
-        linkedin_id = data['id']
-        resp_img = linkedin.get('me?projection=({},backgroundPicture(displayImage~digitalmediaAsset:playableStreams)'.format(linkedin_id))
-        resp_img = resp_img.json()
-        for x in resp_img:
-            print(x)
-        linkedin_bp.storage = SQLAlchemyStorage(OAuth, db.session, user=current_user)
         return redirect("/dashboard")
+
+@oauth_authorized.connect
+def linkedin_logged_in(blueprint, token):
+    account_info = linkedin.get('me')
+    if account_info.ok:
+        account_info_json = account_info.json()
+        linkedin_id = account_info_json['id']
+        user_exist = Users.query.filter_by(linkedin_id = linkedin_id).first()
+        if not user_exist: 
+            name = account_info_json["localizedFirstName"] + " " + account_info_json["localizedLastName"]
+            email = linkedin.get('https://api.linkedin.com/v2/clientAwareMemberHandles?q=members&projection=(elements*(primary,type,handle~))')
+            email = email.json()
+            actual_email = email['elements'][0]['handle~']['emailAddress']
+            profile_picture = linkedin.get('https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~digitalmediaAsset:playableStreams))')
+            profile_picture = profile_picture.json()
+            pic_actual = profile_picture['profilePicture']['displayImage~']['elements'][3]['identifiers'][0]['identifier']
+
+            new_user = Users(linkedin_id = linkedin_id, name = name, email = actual_email, profile_photo = pic_actual)
+            try:
+                db.session.add(new_user)
+                db.session.commit()
+                login_user(new_user)
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({
+                    'Database Error' : 'Internal data base error occured. Please try again later.'
+                })
+        else:
+            login_user(user_exist)
+        
+
+
+
     
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
-    return "Party"
+    return str(current_user.name)
     
 
 

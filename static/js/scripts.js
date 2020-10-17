@@ -1,16 +1,23 @@
 
 
 $(document).ready(function() {
-	$('#createURLform').on('submit', function(event) {
+	$('#addCompanyform').on('submit', function(event) {
+		event.preventDefault();
         document.getElementById('msg-box-ajax').style.display = 'block';
-        $('#newLinkModal').modal('hide');
+		$('#newLinkModal').modal('hide');
+		var formData = new FormData();
+		formData.append('file', $('#addCompanyImage')[0].files[0]);
+		console.log(formData)
 		$.ajax({
 			data : {
-				link_name : $('#link_name').val(),
-				long_link : $('#long_link').val()
+				addCompanyname: $('#addCompanyname').val(),
+				addCompanyImage: formData,
+				addCompanyType: $('#addCompanyType').val(),
 			},
 			type : 'POST',
-			url : '/app/createnewurl'
+			url : '/addCompany',
+			enctype: 'multipart/form-data',
+			cache: false,
 		})
 		.done(function(data) {
 
@@ -20,7 +27,7 @@ $(document).ready(function() {
 			}
 			else {
 				document.getElementById('msg-box-ajax').style.display = 'block';
-				document.getElementById('ajax-response').innerHTML  = 'Url shortended and is available at: ' + `<a href = '${data.url}'>${data.url}</a>`;
+				document.getElementById('ajax-response').innerHTML  = data.success;
 			}
 
         });
@@ -49,7 +56,6 @@ $(document).ready(function() {
 			}
 
         });
-        event.preventDefault();
     });
     
 
@@ -128,3 +134,31 @@ function feature_change(feature_id){
     document.getElementById('img-features').src = images[feature_id];
     
 }
+
+if ($(window).width() > 200) {
+	console.log("yaay")
+	$(window).scroll(function(){  
+	   if ($(this).scrollTop() > 40) {
+		  $('#subnav').addClass("fixed-top");
+		  // add padding top to show content behind navbar
+		  $('#subnav').css('margin-top','0')
+		  $('body').css('padding-top', $('.navbar').outerHeight() + 'px');
+		}else{
+		  $('#subnav').removeClass("fixed-top");
+		  $('#subnav').css('margin-top','8px')
+		   // remove padding top from body
+		  $('body').css('padding-top', '0');
+		}   
+	});
+  }
+
+
+var uploadField = document.getElementById("company-logo");
+
+uploadField.onchange = function() {
+	if(this.files[0].size > 1297152){
+		alert("Image is too big! Please upload image of size less than 1mb.");
+		this.value = "";
+	};
+};
+

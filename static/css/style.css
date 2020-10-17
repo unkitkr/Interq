@@ -93,7 +93,9 @@ body{
 
 
 .navbar-dash{
-    background-color: #14021a !important;
+    background-color: #ffffff !important;   /* #14021a */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 .navbar-dash-container{
     
@@ -102,49 +104,77 @@ body{
 .username-navdash{
     font-family: 'Poppins';
     font-weight: 400;
-    color: #ffffff !important;
+    color: #14021a !important;
+}
+
+/* subnav */
+.subnav{
+    margin-top: 8px;
+    z-index: 1;
+}
+
+.btn-addreview{
+    padding: 5px;
+    background-color: #a155dc;
+    text-transform: none;
+    color: #ffffff;
+}
+
+.btn-addreview:hover{
+    color: #f5d9ff;
+}
+
+.nav-filter{
+    font-weight: 600;
+    font-family: 'Nunito' !important;
+    color: #ffffff;
+}
+
+.nav-filter:hover{
+    color: #f5d9ff;
 }
 
 .user-details-plane{
     padding-top: 30px;
 }
 
-.greet-hello{
-    font-family:'Poppins';
-    font-weight: 600;
-    font-size: 22px;
-    vertical-align: middle;
-}
+/* subnav ends */
 
-.mission-ctrl{
-    font-family:'Poppins';
-    font-weight: 400;
-    font-size: 16px;
-    vertical-align: middle;
-    margin-left: 10px;
+/* Dashboard review starts */
+
+.review-contents{
     padding-top: 10px;
+
 }
 
-.link-total{
-    font-family: 'Poppins';
+.card-company{
+    font-weight: 700 !important;
     font-size: 20px;
-    font-weight: 700;
 }
 
-.link-short{
-    font-family: 'Poppins';
-    font-size: 15px;
-    font-weight: 400; 
-    line-height: 0;
+.card-position{
+    font-weight: 500 !important;
+    font-size: 16px;
+    line-height: 1;
 }
 
-
-.links-plane{
-    padding-top: 30px;
+.card-contrib-by{
+    font-weight: 400 !important;
+    font-size: 16px;
+    line-height: 1;
+    padding-bottom: 0px;
 }
 
-.card-body{
-    font-family: 'Poppins';
+.card-batch{
+    font-weight: 400 !important;
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 0px;
+}
+
+.expshare{
+    width: 100%;
+    height: 250px !important;
 }
 
 .close-btn-msg{
@@ -155,6 +185,13 @@ body{
     background-color: #AB3DFA; 
     color: #ffffff;
 }
+
+.close-btn-msg:hover{
+    color: #fcf5ff;
+}
+
+/* Dashboard review components ends */
+
 
 /* Dashboard elements ends */
 

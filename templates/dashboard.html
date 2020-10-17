@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slit|Fit URLs</title>
+    <title>Interquest | {{ payload.name }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -16,300 +16,326 @@
     <!-- Your custom styles (optional) -->
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
     <link rel="icon" type="image/ico" href="/static/img/slit.ico" />
 </head>
 
-<body style="background-color:rgb(252, 248, 255);">
+<body style="background-color:rgb(238, 217, 255);">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js" async></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.core.js" async></script>
+
+    <!-- Companies pannel -->
+    <div class="modal fade" id="companiesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <div class="modal-header" style=" background-color: #14021a">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"> 🏦 Companies </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        {% for companies in payload.all_companies %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ companies.name }}
+                            <span class="badge badge-primary badge-pill">14</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Companies pannel ends -->
+
+
+
+    <!-- Filters pannel -->
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <div class="modal-header" style=" background-color: #14021a">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">🔣 Filters </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Filters pannel ends -->
+
+
+    <!-- Add review pannel -->
+    <div class="modal  fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
+            style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <div class="modal-header" style=" background-color: #14021a">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">📝 Pen down your experience
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Company</label>
+                                    <select class="form-control" name="comapnyName">
+                                        {% for companies in payload.all_companies %}
+                                        <option value="companies.uid">{{ companies.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted">Not in list? <span
+                                            data-toggle="modal" data-target="#addCompanyModal"
+                                            style="cursor: pointer; color: #14021a;">Add
+                                            here</span> </small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Recruitment Type</label>
+                                    <select class="form-control" name="companyRecruit">
+                                        <option value="1">On campus</option>
+                                        <option value="2">Off campus</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Position/Profile</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1"
+                                        placeholder="Position" name="positionCompany">
+                                    <small id="emailHelp" class="form-text text-muted">Please do <b>not</b> abbreviate.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Number of rounds</label>
+                                    <input type="number" max="10" min="1" class="form-control"
+                                        id="exampleInputPassword1" name="noOfRound">
+                                    <small id="emailHelp" class="form-text text-muted">Minimun 1, Maximum 10.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Descibe your experience</label>
+                            <div id="toolbar">
+
+                            </div>
+                            <div id="editor" class="expshare" name="reviewContent">
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add review review ends -->
+
+    <!-- Add company modal -->
+
+    <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <form action="/addCompany" id="addCompanyform" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header" style=" background-color: #14021a">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">➕ Add company</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="companyName">Comapny name</label>
+                            <input type="text" id="addCompanyname" name="addCompanyname" class="form-control"
+                                id="companyname" placeholder="Name">
+                            <small id="emailHelp" class="form-text text-muted">Please enter full name.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Comapny Logo</label>
+                            <input type="file" id="addCompanyImage" name="addCompanyImage" accept="image/*"
+                                id="company-logo" class="form-control" alt="">
+                            <small id="emailHelp" class="form-text text-muted">Ideally 100x100. Less than 1MB.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Company</label>
+                            <select class="form-control" id="addCompanyType" name="addCompanyType">
+                                <option>Mass recruiter</option>
+                                <option>Finance</option>
+                                <option>Consulting</option>
+                                <option>Core (Software and allied)</option>
+                                <option>Core (Civil/Structural)</option>
+                                <option>Core (Aerospace/Mechanical)</option>
+                                <option>Core (Electrical/Electronics)</option>
+                                <option>Sales/Management</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" style="margin: auto;" class="btn btn-secondary"> <i class="fa fa-plus"
+                                aria-hidden="true"></i> Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add company modal ends -->
+
+
 
     <!--Navbar -->
     <div class="container navbar-dash-container">
         <nav class="navbar navbar-expand-lg navbar-dash">
-            <a class="navbar-brand" href="#"><img src="/static/img/slit-logo.png" width="80"
+            <a class="navbar-brand" href="#"><img src="/static/img/interque.png" width="150"
                     style="padding-top: 10px; padding-bottom: 10px;" alt=""></a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" href="#">
-                        <img src="https://ui-avatars.com/api/?name={{ payload.name }}&background=D3A6F2&color=fff"
-                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        <img src="{{ payload.profile_picture }}" id="profileImage" class="rounded-circle z-depth-0"
+                            height="35">
                     </a>
                 </li>
 
             </ul>
             <div class="dropdown">
-                <a style="color: #ffffff !important;" class="dropdown-toggle" href="#" role="button"
+                <a style="color: #14021a !important;" class="dropdown-toggle" href="#" role="button"
                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="username-navdash">{{ payload.name }}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="/app/signout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <a class="dropdown-item" href="/app/signout"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout</a>
                 </div>
             </div>
         </nav>
     </div>
     <!--/.Navbar -->
 
-    <!-- New Link Modal -->
-    <div class="modal fade" id="newLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
-            <div class="modal-content">
-                <div class="modal-header" style=" background-color: #AB3DFA;">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"><i class="fa fa-plus-circle"
-                            aria-hidden="true"></i> Create new link</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
-                    </button>
-                </div>
-                <form id="createURLform">
-                    <div class="modal-body">
-                        <div class="input-group mb-3" style="margin-bottom: 30px;">
-                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><i
-                                        class="fa fa-file-text" aria-hidden="true"></i></span>
-                            </div>
-                            <input type="text" name="link_name" class="form-control" id="link_name"
-                                placeholder="Name (for your refernce)" required>
-                        </div>
-                        <div class="input-group mb-3" style="margin-bottom: 30px;">
-                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><i
-                                        class="fas fa-link"></i></span></div>
-                            <input type="url" name="long_link" class="form-control" id="long_link" placeholder="Long URL" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" style="margin: auto;" class="btn btn-secondary">Create new</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- New link Modal ends -->
-
-    <!-- All links -->
-    <div class="modal fade" id="allLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
-            style="border-radius: 10px !important;">
-            <div class="modal-content">
-                <div class="modal-header" style=" background-color: #AB3DFA;">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"><i
-                            class="fa fa-external-link-square-alt" aria-hidden="true"></i> Link routes</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        {% for pay in payload.all_links %}
-                        <div class="col-md-6">
-                            {% if pay.is_active %}
-                            <div class="card" style="border-top: 5px solid #99f359;  margin-bottom: 25px;">
-                            {% else %}
-                            <div class="card" id="" style="border-top: 5px solid #ff4949;  margin-bottom: 25px;">
-                            {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title" style="line-height: 1;">{{ pay.name }}</h5>
-                                    <p class="card-text" style="color: #000000; line-height: 1;">Redirects to: <a
-                                            href="/{{ pay.short_key }}">https://slit-fit.herokuapp.com/{{ pay.short_key }}</a></p>
-                                    <p class="card-text" style="color: #000000; line-height: 1;">Originates: <a
-                                            href="{{ pay.original_link }}">{{ pay.original_link }}</a></p>
-                                    <p class="card-text" style="color: #000000; line-height: 1;">Status: {{ pay.is_active }}</p>
-                                    {% if pay.is_active %}
-                                    <button class="btn close-btn-msg explicit-link-deactive" id="{{ pay.uid }}" type="button">Deactivate</button>
-                                    {% else %}
-                                    <button class="btn close-btn-msg explicit-link-reactive" id="{{ pay.uid }}" type="button">Activate</button>
-                                    {% endif %}
-                                    <button class="btn close-btn-msg explicit-link-delete" style="right: 92px; background-color: #ff4949;"
-                                        type="button" id="{{ pay.uid }}"  >Delete</button>
-                                </div>
+    <!-- Sub navigation starts -->
+    <div class="container navbar-dash-container subnav" id="subnav">
+        <nav class="navbar navbar-expand-lg container"
+            style="background-color: #14021a !important; border-radius: 8px;">
+            <a class="navbar-brand" href="#"
+                style="padding-top: 10px; font-size: 18px; padding-bottom: 10px; color: #ffffff;">🤩 Contributions:
+                {{ payload.reviews_written|length }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-flash" aria-hidden="true" style="color:#ffffff;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item active">
+                        <div class="dropdown">
+                            <a class="nav-link nav-filter dropdown-toggle" role="button" id="dropdownfilter"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"> <i
+                                    class="fa fa-building" aria-hidden="true"></i>
+                                Companies <span class="sr-only">(current)</span></a>
+                            <div class="dropdown-menu " aria-labelledby="dropdownfilter">
+                                in
+                                <a class="dropdown-item" href="/app/signout"><i class="fa fa-sign-out"
+                                        aria-hidden="true"></i>
+                                    Logout</a>
                             </div>
                         </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" style="margin: auto;" data-dismiss="modal"
-                        class="btn btn-secondary">CLOSE</button>
-                </div>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link nav-filter" href="#" data-toggle="modal" data-target="#filterModal "> <i
+                                class="fa fa-filter" aria-hidden="true"></i>
+                            Filters</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-filter" href="#" data-toggle="modal" data-target="#companiesModal"> <i
+                                class="fa fa-building" aria-hidden="true"></i>
+                            Listed Companies</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-addreview" type="button" data-toggle="modal"
+                            data-target="#reviewModal"><i class="fa fa-pencil" aria-hidden="true"></i>
+                            Share experience </button>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </nav>
     </div>
-    <!-- All links ends -->
+    <!-- Sub navigation ends -->
 
     <!-- main plane -->
-
+    {% if message %}
     <div class="container">
         <div class="row">
-            {% if err %}
-            <div class="col-md-12" style="margin-top: 30px;" id="msg-box">
+            <div class="col-md-12" style="margin-top: 8px;">
                 <div class="card">
                     <div class="card-body" style="padding-top: 10px; padding-bottom:10px;">
                         <h5 class="card-title" style="font-family: 'Poppins'; font-weight: 500;">Message</h5>
-                        <p class="card-text">
-                            {{ err }}
-                        </p>
-                    </div>
-                    <button class="btn close-btn-msg" onclick="hide_msg()" type="button">CLOSE</button>
-                </div>
-            </div>
-            {% endif %}
-            <div class="col-md-12" style="margin-top: 30px; display: none;" id="msg-box-ajax">
-                <div class="card" >
-                    <div class="card-body" style="padding-top: 10px; padding-bottom:10px;">
-                        <h5 class="card-title" style="font-family: 'Poppins'; font-weight: 500;">Message</h5>
                         <p class="card-text" id="ajax-response">
-                            Your request is being processed <i class="fas fa-spinner fa-pulse"></i>
+                            {{ message }}
                         </p>
                     </div>
                     <button class="btn close-btn-msg" onclick="hide_msg()" type="button">CLOSE</button>
-                </div>
-            </div>
-
-            <div class="col-md-6 user-details-plane">
-                <div class="card" style="margin-bottom: 30px !important;">
-                    <div class="card-body">
-                        <div class="greet">
-                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
-                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                <i class="fas fa-smile fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
-                            </span>
-                            &nbsp; &nbsp; <span class="greet-hello">Hello! {{ payload.name }} </span>
-                        </div>
-                        <div class="mission-ctrl">This is your mission control center. Explore better. Make
-                            experiences better, for you and others.
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card" style="margin-bottom: 30px;">
-                            <div class="card-body" style="text-align: center;">
-                                <h5 class="card-title">
-                                    <span class="fa-stack fa-2x"
-                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
-                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                        <i class="fas fa-link fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
-                                    </span>
-                                </h5>
-                                <p class="link-total"> {{ payload.links_created }} </p>
-                                <p class="link-short">Links Shortened</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card" style="margin-bottom: 30px;">
-                            <div class="card-body" style="text-align: center;">
-                                <h5 class="card-title">
-                                    <span class="fa-stack fa-2x"
-                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
-                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                        <i class="fas fa-hand-pointer fa-stack-1x fa-inverse"
-                                            style="color: #a932ff;"></i>
-                                    </span>
-                                </h5>
-                                <p class="link-total"> {{ payload.total_visits }} </p>
-                                <p class="link-short">Total Visits</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card" style="margin-bottom: 30px;">
-                            <div class="card-body" style="text-align: center;">
-                                <h5 class="card-title">
-                                    <span class="fa-stack fa-2x"
-                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
-                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                        <i class="fas fa-chart-line fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
-                                    </span>
-                                </h5>
-                                <p class="link-total"> {{ payload.active_links }} </p>
-                                <p class="link-short">Active Links</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card" style="margin-bottom: 30px;">
-                            <div class="card-body" style="text-align: center;">
-                                <h5 class="card-title">
-                                    <span class="fa-stack fa-2x"
-                                        style=" font-size: 30px; padding: 0px; margin: 0px !important;">
-                                        <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                        <i class="fas fa-hand-pointer fa-stack-1x fa-inverse"
-                                            style="color: #a932ff;"></i>
-                                    </span>
-                                </h5>
-                                <p class="link-total"> {{ payload.higest_visit }} </p>
-                                <p class="link-short">Higest Visit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-6 links-plane">
-                <div class="card" style="margin-bottom: 30px !important;">
-                    <div class="card-body">
-                        <div class="greet" style="cursor: pointer;" data-toggle="modal" data-target="#newLinkModal">
-                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
-                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                <i class="fas fa-plus-circle fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
-                            </span>
-                            &nbsp; &nbsp; <span class="greet-hello">Create new URL</span>
-                        </div>
-                        <div class="mission-ctrl">This is simple. Click on the above plus icon, fill the required
-                            details,
-                            just one click and you're good to go.
-                        </div>
-                    </div>
-                </div>
-                <div class="card" style="margin-bottom: 30px !important;">
-                    <div class="card-body">
-                        <div class="greet" style="cursor: pointer;" data-toggle="modal" data-target="#allLinkModal">
-                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
-                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                <i class="fas fa-external-link-square-alt fa-stack-1x fa-inverse"
-                                    style="color: #a932ff;"></i>
-                            </span>
-                            &nbsp; &nbsp; <span class="greet-hello">Links list</span>
-                        </div>
-                        <div class="mission-ctrl" style="padding-top: 13px;">Get details of all the links, which were
-                            created by you.
-                            Click on the above link icon to get started.
-                        </div>
-                        <div>&nbsp;</div>
-                    </div>
-                </div>
-                <div class="card" style="margin-bottom: 30px !important;">
-                    <div class="card-body">
-                        <div class="greet">
-                            <span class="fa-stack fa-2x" style="font-size: 25px; padding: 0px; margin: 0px !important;">
-                                <i class="fas fa-circle fa-stack-2x" style="color: #deafff;"></i>
-                                <i class="fas fa-user fa-stack-1x fa-inverse" style="color: #a932ff;"></i>
-                            </span>
-                            &nbsp; &nbsp; <span class="greet-hello">Account details</span>
-                        </div>
-                        <div class="row" style="padding-top: 12px;">
-                            <div class="col-sm-7">
-                                <span style="font-weight: 500;">Name: </span>{{ payload.name }} <br>
-                                <span style="font-weight: 500;">Email: </span> {{ payload.email }} <br>
-                            </div>
-                            <div class="col-sm-5">
-                                <span style="font-weight: 500;">Date joined: </span> {{ payload.joined }} <br>
-                                <span style="font-weight: 500;">Membership: </span> Free <br>
-                            </div>
-                        </div>
-                        &nbsp;
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    {% endif %}
+    <div class="container">
+        <div class="review-contents">
+            <div class="row">
+                {% for x in range(20) %}
+                <div class="col-md-6">
+                    <div class="card"
+                        style="border-bottom: 4px solid #4ccc33; font-family: 'Poppins'; padding-bottom: -10px !important; margin-bottom:20px; ">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p style="text-align: center;"><img class="rounded-circle" alt="100x100"
+                                            style="padding-top: 7px ;"
+                                            src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" width="100"
+                                            data-holder-rendered="true">
+                                    </p>
+                                </div>
+                                <div class="col-md-9">
+                                    <h5 class="card-company">Company name </h5>
+                                    <p class="card-position ">Position</p>
+                                    <p class="card-contrib-by">Contributed by: </p>
+                                    <p class="card-batch">Batch:</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <!-- main plane ends -->
-
 
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -319,8 +345,27 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/static/js/mdb.min.js"></script>
     <!-- custom scripts -->
-    <script src = "/static/js/scripts.js"></script>
+    <!-- <script type="text/javascript" src="/static/js/scripts.js"></script> -->
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
     <script src="https://use.fontawesome.com/fbbdea0b20.js"></script>
+    <script>
+        var editor = new Quill('#editor', {
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic', 'underline', 'code-block'],
+                    ['blockquote'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ]
+            },
+
+            theme: 'snow'
+        });
+    </script>
+
+    </script>
 
 </body>
 

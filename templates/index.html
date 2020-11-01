@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slit|Fit URLs</title>
+    <title>Interq | Interview better</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -41,15 +41,14 @@
                                 aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="padding-top: 20px;" href="/app/features"> <i class="fa fa-superpowers" aria-hidden="true"></i> Team</a>
+                        <a class="nav-link" style="padding-top: 20px;" href="/team"> <i class="fa fa-superpowers" aria-hidden="true"></i> Team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="padding-top: 20px;" href="/app/about"><i class="fa fa-info-circle"
+                        <a class="nav-link" style="padding-top: 20px;" href="/about"><i class="fa fa-info-circle"
                                 aria-hidden="true"></i> About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#"><button class="btn btn-signin" style="padding: 8px; margin-left: 0px;" type="button"
-                                data-toggle="modal" data-target="#signinModal"><i class="fa fa-sign-in"
+                        <a class="nav-link " href="/login"><button class="btn btn-signin" style="padding: 8px; margin-left: 0px;" type="button"><i class="fa fa-sign-in"
                                     aria-hidden="true"></i> Signin</button></a>
                     </li>
                 </ul>
@@ -61,39 +60,6 @@
 
 
 
-    <!-- Signin modal -->
-    <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
-            <div class="modal-content">
-                <div class="modal-header" style=" background-color: #AB3DFA;">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"><i class="fa fa-sign-in"
-                            aria-hidden="true"></i> Signin</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
-                    </button>
-                </div>
-                <form action="/app/signin" method="POST">
-                    <div class="modal-body">
-                        <div class="input-group mb-3" style="margin-bottom: 30px;">
-                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">@</span>
-                            </div>
-                            <input type="email" name="user_email" class="form-control" id="" placeholder="Email" required>
-                        </div>
-                        <div class="input-group mb-3" style="margin-bottom: 30px;">
-                            <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1"><i
-                                        class="fas fa-dot-circle    "></i></span></div>
-                            <input type="password" name="user_password" class="form-control" id="" placeholder="Password" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Signin modal ends -->
 
 
     <!-- Signup modal -->
@@ -148,8 +114,8 @@
                     <div class="userline-landing" style="width: 120px; height: 3px; background-color: #45025c;"></div>
                     <div class="sub-land">A repostiory of interviewing experiences, to make your experience better. </div>
                     <p class="main-btn-center">
-                        <button class="btn btn-start" type="button" data-toggle="modal" data-target="#signupModal">Get
-                            started 🚀 </button>
+                        <a href="/login" class="btn btn-start" type="button">Get
+                            started 🚀 </a>
                     </p>
                 </div>
                 <div class="col-md-7">

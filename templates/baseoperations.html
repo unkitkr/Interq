@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slit |{% block title %}{% endblock %}</title>
+    <title>Interq |{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -23,33 +23,32 @@
 
     <!-- Navbar start -->
 
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="/static/img/slit-logo.png" width="100"
-                    style="padding-top: 20px; padding-bottom: 20px;" alt=""></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto" style="margin-top: 10px;">
-                    <li class="nav-item active">
-                        <a class="nav-link" style="padding-top: 20px;" href="/"><i class="fa fa-home"
-                                aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="padding-top: 20px;" href="/app/features"><i class="fa fa-bolt"
-                                aria-hidden="true"></i> Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" style="padding-top: 20px;" href="/app/about"><i class="fa fa-info-circle"
-                                aria-hidden="true"></i> About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="container navbar-dash-container">
+        <nav class="navbar navbar-expand-lg navbar-dash">
+            <a class="navbar-brand" href="#"><img src="/static/img/interque.png" width="150"
+                    style="padding-top: 10px; padding-bottom: 10px;" alt=""></a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" href="#">
+                        <img src="{% block userpic %} {% endblock %}" id="profileImage" class="rounded-circle z-depth-0"
+                            height="35">
+                    </a>
+                </li>
 
+            </ul>
+            <div class="dropdown">
+                <a style="color: #14021a !important;" class="dropdown-toggle" href="#" role="button"
+                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="username-navdash">{% block username %} {% endblock %}</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout</a>
+                </div>
+            </div>
+        </nav>
+    </div>
     <!-- Navbar ends -->
 
     {% block content %}

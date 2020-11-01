@@ -12,7 +12,7 @@ html{
 body{
     height: 100%;
     width: 100%;
-    background-color: #fcf5ff;
+    background-color: #FCF5FF;
     font-family: 'Nunito';
 }
 
@@ -156,13 +156,16 @@ body{
     font-weight: 500 !important;
     font-size: 16px;
     line-height: 1;
+    padding-bottom: 0px !important; 
+    margin-bottom: 10px !important;
 }
 
 .card-contrib-by{
     font-weight: 400 !important;
     font-size: 16px;
     line-height: 1;
-    padding-bottom: 0px;
+    padding-bottom: 0px !important; 
+    margin-bottom: 10px !important;
 }
 
 .card-batch{
@@ -170,6 +173,12 @@ body{
     font-size: 16px;
     line-height: 1;
     margin-bottom: 0px;
+}
+.card-rating{
+    font-weight: 400 !important;
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 10px;
 }
 
 .expshare{
@@ -186,8 +195,15 @@ body{
     color: #ffffff;
 }
 
+.review-card{
+    border-radius: 8px;
+}
+
 .close-btn-msg:hover{
     color: #fcf5ff;
+}
+.ql-editor strong{
+    font-weight:bold  !important;
 }
 
 /* Dashboard review components ends */
@@ -195,6 +211,26 @@ body{
 
 /* Dashboard elements ends */
 
+
+.team-top{
+    margin-top: 50px;
+}
+
+.main-team{
+    padding-top: 20px;
+    font-weight: 800;
+    text-align: center;
+    font-family: 'Poppins';
+    font-size: 35px;
+}
+
+.sub-team{
+    font-weight: 400;
+    text-align: center;
+    font-family: 'Poppins';
+    padding-top: 10px;
+    font-size: 20px;
+}
 
 
 /* 404 elements */
@@ -237,6 +273,20 @@ body{
 
 /* features ends */
 
+/* Experience starts */
+.exp-main-label{
+    font-weight: 700;
+    font-size: 20px;
+}
+.review-descripton{
+    margin-top: 50px;
+    font-size: 18px;
+}
+.bypass-a{ 
+    color: inherit !important; 
+    text-decoration: none;
+} 
+/* Experience Ends */
 
 /* about starts */
 
@@ -264,6 +314,39 @@ body{
     color: #ffffff;
 }
 
+.edit-btns{
+    margin: 0px !important;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+    text-transform: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 5px 15px 5px 15px;
+}
+
+#msg-box-ajax{
+    display: none;
+}
+
+.question{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: "Poppins";
+}
+.answer{
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-family: "Poppins";
+}
+
+.faq{
+    font-size: 25px;
+    font-weight: 800;
+    font-family: "Poppins";
+    margin-bottom: 20px;
+}
 
 /* moblile optimizations */
 
@@ -306,5 +389,8 @@ body{
     }
     .slit-imp-sec{
         padding-bottom: 50px;
+    }
+    .faq{
+        font-size: 22px;
     }
   }

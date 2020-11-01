@@ -20,7 +20,7 @@
     <link rel="icon" type="image/ico" href="/static/img/slit.ico" />
 </head>
 
-<body style="background-color:rgb(238, 217, 255);">
+<body style="background-color: #FCF5FF">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js" async></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.core.js" async></script>
 
@@ -38,10 +38,13 @@
                 <div class="modal-body">
                     <ul class="list-group list-group-flush">
                         {% for companies in payload.all_companies %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ companies.name }}
-                            <span class="badge badge-primary badge-pill">14</span>
-                        </li>
+                        <a class="bypass-a" href="/getspecificcompany/{{ companies[1] }}">
+                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                id="{{ companies[1] }}">
+                                {{ companies[0] }}
+                                <span class="badge badge-primary badge-pill">{{ companies[2] }}</span>
+                            </li>
+                        </a>
                         {% endfor %}
                     </ul>
                 </div>
@@ -61,16 +64,16 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
             <div class="modal-content">
                 <div class="modal-header" style=" background-color: #14021a">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">🔣 Filters </h5>
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">🔣 Top Questions </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" style="color: #ffffff;">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    ✋ Ruko zara! Sabar karo. (Coming soon). 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
+                    <button type="submit" style="margin: auto;" data-dismiss="modal" class=" btn btn-secondary">I'll wait</button>
                 </div>
             </div>
         </div>
@@ -84,22 +87,23 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
             style="border-radius: 10px !important;">
             <div class="modal-content">
-                <div class="modal-header" style=" background-color: #14021a">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">📝 Pen down your experience
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
+                <form action="/addReview" method="POST" id="addReview">
+                    <div class="modal-header" style=" background-color: #14021a">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff">📝 Pen down your
+                            experience
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="exampleInputEmail1">Company</label>
-                                    <select class="form-control" name="comapnyName">
+                                    <select class="form-control" name="reviewCompanyName" id="reviewCompanyName">
                                         {% for companies in payload.all_companies %}
-                                        <option value="companies.uid">{{ companies.name }}</option>
+                                        <option value="{{companies[1]}}">{{ companies[0] }}</option>
                                         {% endfor %}
                                     </select>
                                     <small id="emailHelp" class="form-text text-muted">Not in list? <span
@@ -109,9 +113,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleInputEmail1">Recruitment Type</label>
-                                    <select class="form-control" name="companyRecruit">
-                                        <option value="1">On campus</option>
-                                        <option value="2">Off campus</option>
+                                    <select class="form-control" name="reviewRecruitType" id="reviewRecruitType">
+                                        <option value="On campus">On campus</option>
+                                        <option value="Off campus">Off campus</option>
                                     </select>
 
                                 </div>
@@ -121,8 +125,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Position/Profile</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Position" name="positionCompany">
+                                    <input type="text" class="form-control" placeholder="Position" name="reviewRole"
+                                        id="reviewRole">
                                     <small id="emailHelp" class="form-text text-muted">Please do <b>not</b> abbreviate.
                                     </small>
                                 </div>
@@ -130,9 +134,50 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Number of rounds</label>
-                                    <input type="number" max="10" min="1" class="form-control"
-                                        id="exampleInputPassword1" name="noOfRound">
+                                    <select class="form-control" name="noOfRounds" id="noOfRounds">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
                                     <small id="emailHelp" class="form-text text-muted">Minimun 1, Maximum 10.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Interviewing experience</label>
+                                    <select class="form-control" name="interviewingScore" id="interviewingScore">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted">1: Worst, 5: Excellent.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Difficulty</label>
+                                    <select class="form-control" name="difficultyScore" id="difficultyScore">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <small id="emailHelp" class="form-text text-muted">1: Easiest, 5: Extremely
+                                        difficult.
                                     </small>
                                 </div>
                             </div>
@@ -140,18 +185,32 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Descibe your experience</label>
                             <div id="toolbar">
-
                             </div>
                             <div id="editor" class="expshare" name="reviewContent">
-
+                                Try to keep it short, crisp and to the point. <br>
+                                You may consider following this order. <br>
+                                <ol>
+                                    <li>Tell us how you got the interview (about aptitude tests etc. in case of on campus or your application process in case of offcampus).</li>
+                                    <li>Explain in brief what happened in each round of interview. Do mention the
+                                        questions asked.</li>
+                                    <li>Tell us how was the flow of your interview. (How well you answered and describe the soft skills traits which were helpful to you.) </li>
+                                    <li>Try to mention points precisely. (Of course, the best of what you remember).
+                                    </li>
+                                    <li>Selection status: 1. Selected 2. Rejected 3. Declined 4. Results awaited.</li>
+                                </ol>
+                                **Please try <b>not</b> to use harsh language, although sometimes it's difficult but
+                                still 😉.
                             </div>
+                            <button class="btn close-btn-msg" style="right: 10px !important;" type="button"
+                                onclick="clearEditor()">Clear</button>
                         </div>
-                    </form>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" style="margin: auto;" class="btn btn-secondary"> <i class="fa fa-share"
+                                aria-hidden="true"></i> Share</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -209,6 +268,36 @@
     <!-- Add company modal ends -->
 
 
+    <!-- Signout confirmation modal -->
+    <div class="modal fade" id="signoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" style="border-radius: 20px !important;">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
+            <div class="modal-content">
+                <div class="modal-header" style=" background-color: #14021a">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"><i class="fa fa-sign-in"
+                            aria-hidden="true"></i> Sign out</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p style="text-align: center; font-size: 50px; color: rgb(255, 79, 79);"><i
+                            class="fa fa-exclamation-circle" aria-hidden="true"></i></p>
+                    <p style="text-align: center; font-size: 18px;"> Logging out of this app will log you out from
+                        linkedin too. </p>
+                </div>
+                <div class="modal-footer">
+                <a href="/logout" target="_blank" onclick=" location.href = '/' " type="button" style="margin: auto !important;"
+                            class="btn btn-secondary">Sign out</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Signout modal ends -->
+
+
 
     <!--Navbar -->
     <div class="container navbar-dash-container">
@@ -231,7 +320,8 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="/app/signout"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <a data-toggle="modal" data-target="#signoutModal" class="dropdown-item"><i class="fa fa-sign-out"
+                            aria-hidden="true"></i>
                         Logout</a>
                 </div>
             </div>
@@ -267,9 +357,8 @@
                         </div>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link nav-filter" href="#" data-toggle="modal" data-target="#filterModal "> <i
-                                class="fa fa-filter" aria-hidden="true"></i>
-                            Filters</a>
+                        <a class="nav-link nav-filter" href="#" data-toggle="modal" data-target="#filterModal "> <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            Top questions (coming soon)</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-filter" href="#" data-toggle="modal" data-target="#companiesModal"> <i
@@ -292,7 +381,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12" style="margin-top: 8px;">
-                <div class="card">
+                <div class="card" id="msg-box">
                     <div class="card-body" style="padding-top: 10px; padding-bottom:10px;">
                         <h5 class="card-title" style="font-family: 'Poppins'; font-weight: 500;">Message</h5>
                         <p class="card-text" id="ajax-response">
@@ -306,36 +395,62 @@
     </div>
     {% endif %}
     <div class="container">
-        <div class="review-contents">
-            <div class="row">
-                {% for x in range(20) %}
-                <div class="col-md-6">
-                    <div class="card"
-                        style="border-bottom: 4px solid #4ccc33; font-family: 'Poppins'; padding-bottom: -10px !important; margin-bottom:20px; ">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <p style="text-align: center;"><img class="rounded-circle" alt="100x100"
-                                            style="padding-top: 7px ;"
-                                            src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" width="100"
-                                            data-holder-rendered="true">
-                                    </p>
-                                </div>
-                                <div class="col-md-9">
-                                    <h5 class="card-company">Company name </h5>
-                                    <p class="card-position ">Position</p>
-                                    <p class="card-contrib-by">Contributed by: </p>
-                                    <p class="card-batch">Batch:</p>
-                                </div>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 8px;" id="msg-box-ajax">
+                <div class="card">
+                    <div class="card-body" style="padding-top: 10px; padding-bottom:10px;">
+                        <h5 class="card-title" style="font-family: 'Poppins'; font-weight: 500;">Message</h5>
+                        <p class="card-text" id="ajax-response">
+                            Your request is being processed <i class="fas fa-spinner fa-pulse"></i>
+                        </p>
                     </div>
+                    <button class="btn close-btn-msg" onclick="hide_msg_ajax()" type="button">CLOSE</button>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="review-contents">
+            <div class="row" id="review-contents">
+                <template id="review-card-template">
+                    <div class="col-md-6">
+                        <a id="review-card-anchor" class="bypass-a" href="">
+                            <div class="card review-card" id="review-card-template-unique"
+                                style="border-bottom: 4px solid #4ccc33; font-family: 'Poppins'; padding-bottom: -10px !important; margin-bottom:20px; ">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p style="text-align: center;"><img class="rounded-circle" alt="100x100"
+                                                    id="company-logo-disp" style="padding-top: 10px ; max-width: 100px;"
+                                                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
+                                                    data-holder-rendered="true">
+                                            </p>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <h5 class="card-company" id="card-company"> </h5>
+                                            <p class="card-position " id="card-position">Position</p>
+                                            <p class="card-contrib-by">Contributed by: <span
+                                                    id="card-contrib-by"></span> </p>
+                                            <p class="card-rating">Interview: <span id="ivRating"
+                                                    style="font-weight: 600;"></span> &nbsp;&nbsp; Overall: <span
+                                                    id="ovRating" style="font-weight: 600;"></span></p>
+                                            <p class="card-batch">Posted on: <span id="card-batch"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3" id="sentinel">
+            <div class="spinner-border" role="status"></div>
+        </div>
+    </div>
     <!-- main plane ends -->
+
 
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -344,9 +459,9 @@
     <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="/static/js/mdb.min.js"></script>
-    <!-- custom scripts -->
-    <!-- <script type="text/javascript" src="/static/js/scripts.js"></script> -->
 
+    <!-- custom scripts -->
+    <script type="text/javascript" src="/static/js/scripts.js"></script>
     <!-- Include the Quill library -->
     <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
     <script src="https://use.fontawesome.com/fbbdea0b20.js"></script>
@@ -363,7 +478,12 @@
 
             theme: 'snow'
         });
+
+        function clearEditor() {
+            editor.setContents([{ insert: '\n' }]);
+        }
     </script>
+
 
     </script>
 

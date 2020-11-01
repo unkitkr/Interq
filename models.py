@@ -10,9 +10,10 @@ db = SQLAlchemy()
 class Users(db.Model,UserMixin):
     uid = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
     linkedinid = db.Column(db.String, nullable = False, unique = True)
+    name = db.Column(db.String, nullable = False, unique = False)
     email = db.Column(db.String, nullable=False, unique = True)
     date_of_joining = db.Column(db.DateTime, default = datetime.datetime.today().strftime('%Y/%m/%d'), nullable = False)
-    user_experiences = db.relationship('UserExperience', backref="Users")
+    user_experiences = db.relationship('UserExperience', backref="users")
     def get_id(self):
         return self.uid
 
@@ -28,6 +29,8 @@ class UserExperience(db.Model,UserMixin):
     role = db.Column(db.String, nullable=False)
     recruitment_type = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
+    difficulty_level = db.Column(db.Integer, nullable = False)
+    experience_level = db.Column(db.Integer, nullable = False)
     created_on = db.Column(db.DateTime, default = datetime.datetime.today().strftime('%Y/%m/%d'), nullable = False)
 
 class Companies(db.Model,UserMixin):

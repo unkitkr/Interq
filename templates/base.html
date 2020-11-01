@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interq|{% block title %} {% endblock %} </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="/static/css/mdb.min.css">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+    <link rel="icon" type="image/ico" href="/static/img/slit.ico" />
+
+</head>
+
+<body>
+    <!-- Navbar start -->
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="/static/img/interque.png" width="160"
+                    style="padding-top: 20px; padding-bottom: 20px;" alt=""></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto" style="margin-top: 10px;">
+                    <li class="nav-item active">
+                        <a class="nav-link" style="padding-top: 20px;" href="/"><i class="fa fa-home"
+                                aria-hidden="true"></i> Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="padding-top: 20px;" href="/team"> <i class="fa fa-superpowers" aria-hidden="true"></i> Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="padding-top: 20px;" href="/about"><i class="fa fa-info-circle"
+                                aria-hidden="true"></i> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/login"><button class="btn btn-signin" style="padding: 8px; margin-left: 0px;" type="button"><i class="fa fa-sign-in"
+                                    aria-hidden="true"></i> Signin</button></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navbar ends -->
+
+    {% block contents %}
+    {% endblock %}
+
+
+
+
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/static/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/static/js/mdb.min.js"></script>
+    
+    <script src="https://use.fontawesome.com/fbbdea0b20.js"></script>
+
+</body>
+
+</html>

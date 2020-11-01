@@ -1,0 +1,159 @@
+{% extends 'baseoperations.html' %}
+
+{% block title %} {{ payload.company }} {% endblock %}
+
+{% block username %} {{ user_detail.name }} {% endblock %}
+{% block userpic %} {{ payload.profile_picture }} {% endblock %}
+
+
+{% block content %}
+
+<!-- Add review pannel -->
+<div class="modal  fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true" style="border-radius: 20px !important;">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document"
+    style="border-radius: 10px !important;">
+    <div class="modal-content">
+        <form action="/editexperience/{{ payload.review_id }}" method="POST">
+            <div class="modal-header" style=" background-color: #14021a">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: #ffffff"> Edit Experience
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: #ffffff;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Position/Profile</label>
+                            <input type="text"  class="form-control" value="{{ payload.position }}" placeholder="Position" name="role"
+                                id="reviewRole">
+                            <small id="emailHelp" class="form-text text-muted">Please do <b>not</b> abbreviate.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Number of rounds</label>
+                            <select class="form-control" name="no_rounds" id="noOfRounds">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            <small id="emailHelp" class="form-text text-muted">Minimun 1, Maximum 10.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Interviewing experience</label>
+                            <select class="form-control" name="exp" id="interviewingScore">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <small id="emailHelp" class="form-text text-muted">1: Worst, 5: Excellent.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Difficulty</label>
+                            <select class="form-control" name="difficulty" id="difficultyScore">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <small id="emailHelp" class="form-text text-muted">1: Easiest, 5: Extremely
+                                difficult.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Descibe your experience</label>
+                    <div id="toolbar">
+                    </div>
+                    <textarea id="editor" class="expshare" name="experience">
+                        {{ payload.description }}
+                    </textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" style="margin: auto;" class="btn btn-secondary"> <i class="fa fa-share"
+                        aria-hidden="true"></i> Share</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+<!-- Add review review ends -->
+
+
+
+
+<div class="container" style="padding-top: 20px;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="exp-main-label">Company: {{ payload.company }}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="exp-main-label">Position: {{payload.position}} </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="exp-main-label">Rounds: {{ payload.number_rounds }}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="exp-main-label">Recruitment: {{ payload.onoffcampus }} </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="exp-main-label">Experience: {{ "⭐"*payload.experience_level }} </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="exp-main-label">Difficulty: {{ "⭐"*payload.difficulty_level }} </div>
+                </div>
+            </div>
+            <div class="review-descripton">
+                {{ payload.description }}
+            </div>
+            <div class="exp-main-label" style="padding-top: 50px;">Contributed by: {{ payload.written_by }}</div>
+            {% if payload.is_author %}
+             <a href="/deleteexperience/{{payload.review_id}}"><button class="btn btn-danger edit-btns" type="button"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button></a>
+             <button  data-toggle="modal" data-target="#editModal" class="btn btn-secondary edit-btns" type="button"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.5.1/tinymce.min.js"></script>
+<script>
+tinymce.init({
+    selector: '#editor',
+    menubar: '',
+    toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist |  pagebreak | insertfile image media template link anchor codesample |',
+});
+</script>
+{% endblock %}

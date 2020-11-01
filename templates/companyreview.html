@@ -1,0 +1,62 @@
+{% extends 'baseoperations.html' %}
+{% block title %}{{ company.name}}{% endblock %}
+{% block username %} {{ current_user.name }} {% endblock %}
+{% block userpic %} {{ profile_pic }} {% endblock %}
+
+{% block content %}
+
+    <!-- Sub navigation starts -->
+    <div class="container navbar-dash-container subnav" id="subnav">
+        <nav class="navbar navbar-expand-lg container"
+            style="background-color: #14021a !important; border-radius: 8px;">
+            <a class="navbar-brand" href="#"
+                style="padding-top: 10px; font-size: 18px; padding-bottom: 10px; color: #ffffff;"> {{ company.name }}</a>
+            
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-filter" href="#" data-toggle="modal" data-target="#companiesModal">
+                                {{ reviews|length }} reviews</a>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row" style="margin-top:20px">
+            {% for review in reviews %}
+            <div class="col-md-6">
+                <a id="review-card-anchor" class="bypass-a" href="/viewexperience/{{review.review_id}}">
+                    <div class="card review-card" id="review-card-template-unique"
+                        style="border-bottom: 4px solid #4ccc33; font-family: 'Poppins'; padding-bottom: -10px !important; margin-bottom:20px; ">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p style="text-align: center;"><img class="rounded-circle" alt="100x100"
+                                            id="company-logo-disp" style="padding-top: 10px ; max-width: 100px;"
+                                            src="/{{ review.logo }}"
+                                             data-holder-rendered="true">
+                                    </p>
+                                </div>
+                                <div class="col-md-9">
+                                    <h5 class="card-company" id="card-company">{{company.name}} </h5>
+                                    <p class="card-position " id="card-position">{{ review.position }}</p>
+                                    <p class="card-contrib-by">Contributed by:{{review.user_name}} <span
+                                            id="card-contrib-by"></span> </p>
+                                    <p class="card-rating">Interview: <span id="ivRating"
+                                            style="font-weight: 600;">{{ review.difficulty_level }} ⭐</span> &nbsp;&nbsp; Overall: <span
+                                            id="ovRating" style="font-weight: 600;">{{ review.experience }} ⭐</span></p>
+                                    <p class="card-batch"> <span id="card-batch">Posted on: {{review.date.date()}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Sub nav ends -->
+
+{% endblock %}

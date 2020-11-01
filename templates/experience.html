@@ -89,7 +89,7 @@ aria-hidden="true" style="border-radius: 20px !important;">
                     <div id="toolbar">
                     </div>
                     <textarea id="editor" class="expshare" name="experience">
-                        {{ payload.description }}
+                        {{ payload.description|safe }}
                     </textarea>
                 </div>
 

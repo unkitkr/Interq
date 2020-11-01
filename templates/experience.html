@@ -10,7 +10,7 @@
 
 <!-- Add review pannel -->
 <div class="modal  fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true" style="border-radius: 20px !important;">
+aria-hidden="true" style="border-radius: 20px !important;" data-backdrop="static" data-keyboard="false">
 <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
     style="border-radius: 10px !important;">
     <div class="modal-content">
@@ -28,7 +28,7 @@ aria-hidden="true" style="border-radius: 20px !important;">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Position/Profile</label>
                             <input type="text"  class="form-control" value="{{ payload.position }}" placeholder="Position" name="role"
-                                id="reviewRole">
+                                id="reviewRole" required>
                             <small id="emailHelp" class="form-text text-muted">Please do <b>not</b> abbreviate.
                             </small>
                         </div>
@@ -36,7 +36,7 @@ aria-hidden="true" style="border-radius: 20px !important;">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Number of rounds</label>
-                            <select class="form-control" name="no_rounds" id="noOfRounds">
+                            <select class="form-control" name="no_rounds" id="noOfRounds" required>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -57,7 +57,7 @@ aria-hidden="true" style="border-radius: 20px !important;">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Interviewing experience</label>
-                            <select class="form-control" name="exp" id="interviewingScore">
+                            <select class="form-control" name="exp" id="interviewingScore" required>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -71,7 +71,7 @@ aria-hidden="true" style="border-radius: 20px !important;">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Difficulty</label>
-                            <select class="form-control" name="difficulty" id="difficultyScore">
+                            <select class="form-control" name="difficulty" id="difficultyScore" required>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -88,7 +88,7 @@ aria-hidden="true" style="border-radius: 20px !important;">
                     <label for="exampleInputPassword1">Descibe your experience</label>
                     <div id="toolbar">
                     </div>
-                    <textarea id="editor" class="expshare" name="experience">
+                    <textarea id="editor" class="expshare" name="experience" required>
                         {{ payload.description|safe }}
                     </textarea>
                 </div>
@@ -138,11 +138,13 @@ aria-hidden="true" style="border-radius: 20px !important;">
             <div class="review-descripton">
                 {{ payload.description }}
             </div>
-            <div class="exp-main-label" style="padding-top: 50px;">Contributed by: {{ payload.written_by }}</div>
+            <div class="exp-main-label" style="padding-top: 30px; padding-bottom: 30px;">Contributed by: {{ payload.written_by }}</div>
             {% if payload.is_author %}
+            <div style="padding-bottom: 30px; padding-top: -30px !important;">
              <a href="/deleteexperience/{{payload.review_id}}"><button class="btn btn-danger edit-btns" type="button"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </button></a>
              <button  data-toggle="modal" data-target="#editModal" class="btn btn-secondary edit-btns" type="button"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>
-            {% endif %}
+            </div>
+             {% endif %}
         </div>
         <div class="col-md-2"></div>
     </div>

@@ -83,7 +83,7 @@
 
     <!-- Add review pannel -->
     <div class="modal  fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
+        aria-hidden="true" style="border-radius: 20px !important;" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document"
             style="border-radius: 10px !important;">
             <div class="modal-content">
@@ -101,7 +101,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="exampleInputEmail1">Company</label>
-                                    <select class="form-control" name="reviewCompanyName" id="reviewCompanyName">
+                                    <select class="form-control" name="reviewCompanyName" id="reviewCompanyName" required>
                                         {% for companies in payload.all_companies %}
                                         <option value="{{companies[1]}}">{{ companies[0] }}</option>
                                         {% endfor %}
@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleInputEmail1">Recruitment Type</label>
-                                    <select class="form-control" name="reviewRecruitType" id="reviewRecruitType">
+                                    <select class="form-control" name="reviewRecruitType" id="reviewRecruitType" required>
                                         <option value="On campus">On campus</option>
                                         <option value="Off campus">Off campus</option>
                                     </select>
@@ -126,7 +126,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Position/Profile</label>
                                     <input type="text" class="form-control" placeholder="Position" name="reviewRole"
-                                        id="reviewRole">
+                                        id="reviewRole" required>
                                     <small id="emailHelp" class="form-text text-muted">Please do <b>not</b> abbreviate.
                                     </small>
                                 </div>
@@ -134,7 +134,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Number of rounds</label>
-                                    <select class="form-control" name="noOfRounds" id="noOfRounds">
+                                    <select class="form-control" name="noOfRounds" id="noOfRounds" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -155,7 +155,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Interviewing experience</label>
-                                    <select class="form-control" name="interviewingScore" id="interviewingScore">
+                                    <select class="form-control" name="interviewingScore" id="interviewingScore" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -169,7 +169,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Difficulty</label>
-                                    <select class="form-control" name="difficultyScore" id="difficultyScore">
+                                    <select class="form-control" name="difficultyScore" id="difficultyScore0" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -186,7 +186,7 @@
                             <label for="exampleInputPassword1">Descibe your experience</label>
                             <div id="toolbar">
                             </div>
-                            <div id="editor" class="expshare" name="reviewContent">
+                            <div id="editor" class="expshare" name="reviewContent" >
                                 Try to keep it short, crisp and to the point. <br>
                                 You may consider following this order. <br>
                                 <ol>
@@ -219,7 +219,7 @@
     <!-- Add company modal -->
 
     <div class="modal fade" id="addCompanyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
+        aria-hidden="true" style="border-radius: 20px !important;" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
             <div class="modal-content">
                 <form action="/addCompany" id="addCompanyform" method="POST" enctype="multipart/form-data">
@@ -233,18 +233,18 @@
                         <div class="form-group">
                             <label for="companyName">Comapny name</label>
                             <input type="text" id="addCompanyname" name="addCompanyname" class="form-control"
-                                id="companyname" placeholder="Name">
+                                id="companyname" placeholder="Name" required>
                             <small id="emailHelp" class="form-text text-muted">Please enter full name.</small>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Comapny Logo</label>
                             <input type="file" id="addCompanyImage" name="addCompanyImage" accept="image/*"
-                                id="company-logo" class="form-control" alt="">
+                                id="company-logo" class="form-control" alt="" required>
                             <small id="emailHelp" class="form-text text-muted">Ideally 100x100. Less than 1MB.</small>
                         </div>
                         <div class="form-group">
                             <label>Company</label>
-                            <select class="form-control" id="addCompanyType" name="addCompanyType">
+                            <select class="form-control" id="addCompanyType" name="addCompanyType" required>
                                 <option>Mass recruiter</option>
                                 <option>Finance</option>
                                 <option>Consulting</option>
@@ -270,7 +270,7 @@
 
     <!-- Signout confirmation modal -->
     <div class="modal fade" id="signoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
+        aria-hidden="true" style="border-radius: 20px !important;" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
             <div class="modal-content">
                 <div class="modal-header" style=" background-color: #14021a">
@@ -422,7 +422,7 @@
                                         <div class="col-md-3">
                                             <p style="text-align: center;"><img class="rounded-circle" alt="100x100"
                                                     id="company-logo-disp" style="padding-top: 10px ; max-width: 100px;"
-                                                    src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"
+                                                    src=""
                                                     data-holder-rendered="true">
                                             </p>
                                         </div>

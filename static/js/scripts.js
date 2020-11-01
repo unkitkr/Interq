@@ -51,7 +51,7 @@ $(document).ready(function () {
 		  template_clone.querySelector("#card-company").innerHTML = `${data[i][2]}`;
 		  template_clone.querySelector("#card-position").innerHTML = `${data[i][1]}`;
 		  template_clone.querySelector("#card-contrib-by").innerHTML = `${data[i][0]}`;
-		  template_clone.querySelector("#company-logo-disp").src = `${data[i][4]}`;
+		  template_clone.querySelector("#company-logo-disp").src = "/"+`${data[i][4]}`;
       template_clone.querySelector("#card-batch").innerHTML = `${data[i][3]}`.substring(0,16);
       template_clone.querySelector("#ivRating").innerHTML = `${data[i][6]}`+"⭐";
       template_clone.querySelector("#ovRating").innerHTML = `${data[i][7]}`+"⭐" ;

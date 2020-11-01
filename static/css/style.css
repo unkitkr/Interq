@@ -394,4 +394,7 @@ body{
     .faq{
         font-size: 22px;
     }
+    .username-navdash{
+        display: none;
+    }
   }

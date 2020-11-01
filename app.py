@@ -297,7 +297,7 @@ def view_review(id):
             "position": review_detail.role,
             "written_by" : contributor.name,
             "onoffcampus" : review_detail.recruitment_type,
-            "description": review_detail.description,
+            "description": Markup(review_detail.description),
             "difficulty_level": review_detail.difficulty_level,
             "experience_level": review_detail.experience_level,
             "created_on": review_detail.created_on,

@@ -14,7 +14,7 @@ UPLOAD_FOLDER = 'static/uploads'
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://SudoAdmin@interq:P@ssword1@interq.postgres.database.azure.com:5432/postgres"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://SudoAdmin@interq:P@ssword@interq.postgres.database.azure.com:5432/postgres"
 app.config['SECRET_KEY'] = '0817PDNTSPA'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

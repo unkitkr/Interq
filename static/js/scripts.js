@@ -18,10 +18,8 @@ $(document).ready(function () {
       url: "/addReview",
     }).done(function (data) {
       if (data.error) {
-        document.getElementById("msg-box-ajax").style.display = "block";
         document.getElementById("ajax-response").innerHTML = data.error;
       } else {
-        document.getElementById("msg-box-ajax").style.display = "block";
         document.getElementById("ajax-response").innerHTML = data.success;
       }
     });

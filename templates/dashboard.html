@@ -26,7 +26,7 @@
 
     <!-- Companies pannel -->
     <div class="modal fade" id="companiesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true" style="border-radius: 20px !important;">
+        aria-hidden="true" style="border-radius: 20px !important;" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document" style="border-radius: 10px !important;">
             <div class="modal-content">
                 <div class="modal-header" style=" background-color: #14021a">
@@ -49,7 +49,7 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" style="margin: auto;" class="btn btn-secondary">Sign in</button>
+                    <button type="submit" style="margin: auto;" data-dismiss="modal" class="btn btn-secondary">CLOSE</button>
                 </div>
             </div>
         </div>
@@ -169,7 +169,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Difficulty</label>
-                                    <select class="form-control" name="difficultyScore" id="difficultyScore0" required>
+                                    <select class="form-control" name="difficultyScore" id="difficultyScore" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -240,7 +240,7 @@
                             <label for="exampleInputPassword1">Comapny Logo</label>
                             <input type="file" id="addCompanyImage" name="addCompanyImage" accept="image/*"
                                 id="company-logo" class="form-control" alt="" required>
-                            <small id="emailHelp" class="form-text text-muted">Ideally 100x100. Less than 1MB.</small>
+                            <small id="emailHelp" class="form-text text-muted">Ideally 100x100. Less than 1MB. With white/transparent background.</small>
                         </div>
                         <div class="form-group">
                             <label>Company</label>

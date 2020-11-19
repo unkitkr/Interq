@@ -91,15 +91,17 @@ def dashboard():
     account_info = linkedin.get('me')
     session['initial_review_request'] = 0
     if account_info.ok:
+        pic_actual = ""
+        session["profile_picture"] = ""
         account_info_json = account_info.json()
         name = account_info_json["localizedFirstName"] + \
             " " + account_info_json["localizedLastName"]
         profile_picture = linkedin.get(
             'https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~digitalmediaAsset:playableStreams))')
         profile_picture = profile_picture.json()
-
-        pic_actual = profile_picture['profilePicture']['displayImage~']['elements'][3]['identifiers'][0]['identifier']
-        session["profile_picture"] = pic_actual
+        if "profilePicture" in profile_picture:
+            pic_actual = profile_picture['profilePicture']['displayImage~']['elements'][3]['identifiers'][0]['identifier']
+            session["profile_picture"] = pic_actual
         reviews_written = UserExperience.query.filter_by(
             owner=current_user.uid).all()
         all_companies = Companies.query.all()

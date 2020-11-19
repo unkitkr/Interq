@@ -3,7 +3,13 @@
 {% block title %} {{ payload.company }} {% endblock %}
 
 {% block username %} {{ user_detail.name }} {% endblock %}
-{% block userpic %} {{ payload.profile_picture }} {% endblock %}
+{% block userpic %} 
+    {% if payload.profile_picture %}
+    {{ payload.profile_picture }}
+    {% else %}
+    https://ui-avatars.com/api/?name={{ user_detail.name }}
+    {% endif %}
+{% endblock %}
 
 
 {% block content %}

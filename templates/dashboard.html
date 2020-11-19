@@ -307,7 +307,13 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" href="#">
-                        <img src="{{ payload.profile_picture }}" id="profileImage" class="rounded-circle z-depth-0"
+                        <img src="
+                            {% if payload.profile_picture %}
+                            {{ payload.profile_picture }}
+                            {% else %}
+                            https://ui-avatars.com/api/?name={{ payload.name }}
+                            {% endif %}
+                        " id="profileImage" class="rounded-circle z-depth-0"
                             height="35">
                     </a>
                 </li>
